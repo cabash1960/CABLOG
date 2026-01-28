@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-01-27",
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/fonts", "@nuxt/image"],
-  css: ["@picocss/pico"],
+  css: ["@picocss/pico", "/assets/main.css","/assets/piccoOverideCss.css"],
   fonts: {
     provider: "google",
     families: [

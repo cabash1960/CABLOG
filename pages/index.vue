@@ -1,86 +1,92 @@
 <template>
-  <div class="relative">
-    <hero />
-
-    <div class="container relative mx-auto px-4 py-8">
-      <div class="flex justify-between mb-6">
-        <div class="flex justify-center items-center gap-2">
+  <ErrorFallBack>
+    <div class="relative">
+      <hero />
+      <!-- ///////////// -->
+      <div class="container relative flex justify-between px-8 py-12">
+        <div class="flex border border-gray-400">
           <input
             type="text"
             v-model="searchQuery"
-            placeholder="Search posts by title, content..."
-            class="px-4 py-2 border rounded-lg"
+            placeholder="Search by title, content..."
+            class="px-4 py-2 outline-none bg-transparent w-3/4 flex-1 text-center placeholder:text-xl"
           />
-          <div><Search /></div>
+          <button class="px-4 py-2 border-l-1"><Search /></button>
         </div>
-        <div class="flex gap-2">
+
+        <div class="flex flex-wrap gap-2">
           <button
             @click="selectedTag = null"
             :class="[
-              'px-4 py-2 rounded-full text-sm font-medium transition-colors',
+              'px-4 py-2  text-sm font-medium  transition-colors',
               selectedTag === null
-                ? 'bg-blue-600 text-white'
+                ? 'bg-transparent text-white !border !border-gray-400 '
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
             ]"
           >
             All
           </button>
-          <button
-            v-for="tag in availableTags"
-            :key="tag"
-            @click="selectedTag = tag"
-            :class="[
-              'px-4 py-2 rounded-full text-sm font-medium transition-colors',
-              selectedTag === tag
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
-            ]"
-          >
-            {{ tag }}
-          </button>
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="tag in availableTags"
+              :key="tag"
+              @click="selectedTag = tag"
+              :class="[
+                'px-4 py-2  text-sm font-medium transition-colors',
+                selectedTag === tag
+                  ? 'border-2 border-white/50'
+                  : 'bg-transparent text-gray-700 hover:bg-gray-300',
+              ]"
+            >
+              {{ tag }}
+            </button>
+          </div>
         </div>
       </div>
+      <!-- ///////////// -->
 
-      <article v-if="status === 'pending'" aria-busy="true">
-        Loading posts...
-      </article>
+      <div class="container px-8 py-12">
+        <article v-if="status === 'pending'" aria-busy="true">
+          Loading posts...
+        </article>
 
-      <div v-else-if="error" class="text-red-600">
-        <p>Error loading posts: {{ error.message }}</p>
-      </div>
-
-      <div v-else>
-        <div v-if="displayedPosts.length === 0" class="text-center py-12">
-          <p class="text-gray-500">No posts found matching your search.</p>
+        <div v-else-if="error" class="text-red-600">
+          <p>Error loading posts: {{ error.message }}</p>
         </div>
 
         <div v-else>
-          <div class="grid grid-cols-3 gap-8">
-            <BlogCard
-              v-for="post in displayedPosts"
-              :key="post.id"
-              :post="post"
-            />
+          <div v-if="displayedPosts.length === 0" class="text-center py-12">
+            <p class="text-gray-500">No posts found matching your search.</p>
           </div>
 
-          <!-- Load More Button -->
-          <div class="text-center mt-8">
-            <button
-              v-if="canLoadMore"
-              @click="loadMore"
-              :disabled="isloading"
-              class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-            >
-              {{ isloading ? "Loading..." : "Load more" }}
-            </button>
+          <div v-else>
+            <div class="!grid grid-cols-3 gap-8">
+              <BlogCard
+                v-for="post in displayedPosts"
+                :key="post.id"
+                :post="post"
+              />
+            </div>
 
-            <!-- All Loaded Message -->
-            <p v-else class="text-gray-600">No more articles</p>
+            <!-- Load More Button -->
+            <div class="text-center mt-8">
+              <button
+                v-if="canLoadMore"
+                @click="loadMore"
+                :disabled="isloading"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              >
+                {{ isloading ? "Loading..." : "Load more" }}
+              </button>
+
+              <!-- All Loaded Message -->
+              <p v-else class="text-gray-600">No more articles</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </ErrorFallBack>
 </template>
 
 <script setup>
