@@ -47,7 +47,7 @@
           <NuxtLink :to="`/blog/${randomPost.id}`">
             <div class="relative aspect-video overflow-hidden rounded-lg">
               <NuxtImg
-                src="https://i.imgur.com/3XY2QVx.jpeg"
+                src="https://res.cloudinary.com/dfsk9idjx/image/upload/c_crop,g_north_west,h_1253,w_1880/f36e92a9cdc9_m30bim.jpg"
                 alt="tech-img"
                 class="w-full h-full object-cover"
                 format="webp"
