@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/fonts", "@nuxt/image"],
+  image: {
+    domains: ["res.cloudinary.com"],
+  },
   css: ["@picocss/pico", "/assets/main.css", "/assets/piccoOverideCss.css"],
   fonts: {
     provider: "google",
