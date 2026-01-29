@@ -1,7 +1,7 @@
 <template>
   <ErrorFallBack>
     <div
-      class="flex flex-col justify-center items-center gap-6 min-h[3/4] lg:min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 overflow-hidden pt-8 relative"
+      class="flex flex-col justify-center items-center gap-4 min-h[3/4] min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 overflow-hidden pt-8 relative"
     >
       <div class="absolute inset-0 bg-black/60"></div>
 
@@ -33,13 +33,13 @@
 
       <div
         v-else
-        class="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
+        class="!grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
       >
         <div
           class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2"
         ></div>
 
-        <div v-if="statusImg === 'pending'">
+        <div v-if="status === 'pending'">
           <p aria-busy="true">Loading...</p>
         </div>
 
