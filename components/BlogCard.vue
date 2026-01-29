@@ -1,7 +1,7 @@
 <template>
   <ErrorFallBack>
     <div
-      class="relative h-full overflow-hidden rounded-xl bg-[#12172A] p-4 sm:p-6 shadow-lg transition hover:shadow-xl hover:border hover:border-blue-600"
+      class="relative h-full overflow-hidden rounded-xl bg-[#12172A] p-4 sm:p-6 shadow-lg transition hover:shadow-xl hover:shadow-blue-500/20"
     >
       <div
         class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-3"

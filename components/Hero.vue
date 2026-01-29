@@ -50,6 +50,7 @@
                 src="https://i.imgur.com/3XY2QVx.jpeg"
                 alt="tech-img"
                 class="w-full h-full object-cover"
+                format="webp"
               />
             </div>
           </NuxtLink>
@@ -58,9 +59,10 @@
         <div v-else class="z-10">
           <NuxtLink :to="`/blog/${randomPost.id}`" class="group">
             <div class="relative aspect-video overflow-hidden rounded-lg">
-              <img
+              <NuxtImg
                 :src="imgPost.url"
                 :alt="imgPost.description"
+                format="webp"
                 class="w-full h-full object-cover"
               />
             </div>

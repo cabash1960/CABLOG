@@ -3,6 +3,7 @@
     <nav-bar />
     <main>
       <slot />
+      <LazyMyHeavyComponent />
     </main>
     <Footer />
   </ErrorFallBack>

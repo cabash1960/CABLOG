@@ -1,11 +1,11 @@
-import { createError } from "#app";
+import { createError, useLazyFetch } from "#app";
 
 export const usePosts = () => {
   const baseURL = "https://api.oluwasetemi.dev";
   const baseURL2 = "https://api.sourcesplash.com/api/random";
 
   const fetchPosts = async () => {
-    const { data, status, error } = await useFetch(`${baseURL}/posts`);
+    const { data, status, error } = await useLazyFetch(`${baseURL}/posts`);
     if (error.value) {
       throw createError({
         status: 500,
@@ -16,7 +16,9 @@ export const usePosts = () => {
   };
 
   const fetchSlugPosts = async (id: string) => {
-    const { data, status, error } = await useFetch(`${baseURL}/posts/${id}`);
+    const { data, status, error } = await useLazyFetch(
+      `${baseURL}/posts/${id}`,
+    );
     if (error.value) {
       throw createError({
         status: 500,
@@ -27,7 +29,7 @@ export const usePosts = () => {
   };
 
   const fetchImg = async () => {
-    const { data, error, status } = await useFetch(baseURL2);
+    const { data, error, status } = await useLazyFetch(baseURL2);
     if (error.value) {
       throw createError({
         status: 500,

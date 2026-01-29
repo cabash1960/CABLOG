@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <ErrorFallBack>
-      <hero />
+      <LazyHero />
     </ErrorFallBack>
 
     <section class="min-h-screen">
@@ -63,9 +63,20 @@
 
       <ErrorFallBack>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <article v-if="status === 'pending'" aria-busy="true">
-            Loading posts...
-          </article>
+          <div v-if="status === 'pending'">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            >
+              <div v-for="i in 6" :key="i" class="animate-pulse">
+                <div class="h-48 bg-gray-700 rounded-t-lg"></div>
+                <div class="p-4 space-y-3">
+                  <div class="h-4 bg-gray-700 rounded w-3/4"></div>
+                  <div class="h-3 bg-gray-700 rounded"></div>
+                  <div class="h-3 bg-gray-700 rounded w-5/6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div v-else-if="error" class="text-red-600">
             <p>Error loading posts: {{ error.message }}</p>
@@ -78,9 +89,9 @@
 
             <div v-else>
               <div
-                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+                class="!grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               >
-                <BlogCard
+                <LazyBlogCard
                   v-for="post in displayedPosts"
                   :key="post.id"
                   :post="post"

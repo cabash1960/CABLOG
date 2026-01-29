@@ -1,7 +1,12 @@
 <template>
   <div>
+    <NuxtLoadingIndicator />
     <NuxtLayout>
-      <NuxtPage />
+      <Suspense>
+        <template #default>
+          <NuxtPage />
+        </template>
+      </Suspense>
     </NuxtLayout>
   </div>
 </template>
