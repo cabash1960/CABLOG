@@ -2,7 +2,7 @@ Primary Background:   #0B0F1A   (deep navy-black)
 Secondary Background: #12172A   (slightly lifted for sections/cards)
 
 
-Primary Accent:   #4F6BFF   (electric blue)
+Primary Accent:   #637dfe   (electric blue)
 Secondary Accent: #6C7CFF   (softer glow blue)
 Muted Accent:    #2A335A   (grid-friendly blue)
 
@@ -14,8 +14,8 @@ Muted Text:       #6F789F   (timestamps, labels)
 cards background: #12172A;
 border: 1px solid #1F2547;
 
-buttons Primary:   #4F6BFF
-Hover:     #6C7CFF
+buttons Primary:   rgb(79, 107, 255)
+Hover:     #6c7dff
 Text:      #FFFFFF
 
-rgba(79, 107, 255, 0.35)
+rgb(79, 108, 255)

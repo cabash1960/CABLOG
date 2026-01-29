@@ -1,17 +1,24 @@
 <template>
   <ErrorFallBack>
     <div
-      class="flex justify-center items-center gap-4 relative flex-col min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] px-5 bg-cover bg-center bg-no-repeat overflow-hidden pt-8"
+      class="flex flex-col justify-center items-center gap-6 min-h[3/4] lg:min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 overflow-hidden pt-8 relative"
     >
       <div class="absolute inset-0 bg-black/60"></div>
 
       <div
-        class="bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat inset-0 absolute glow-2"
+        class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2"
       ></div>
+
       <div class="glow"></div>
+
       <div class="z-10">
-        <h1 class="text-6xl font-bold font-heading z-10">Cabash Blog</h1>
-        <p class="font-sans text-2xl tracking-wider mt-1 z-10">
+        <h1 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl">
+          <span class="text-blue-500">CABASH </span>BLOG
+        </h1>
+
+        <p
+          class="font-sans tracking-wider mt-2 text-base sm:text-lg lg:text-2xl"
+        >
           Dig into insights about our products, use cases, and POVs
         </p>
       </div>
@@ -19,49 +26,56 @@
       <div v-if="status === 'pending'">
         <article aria-busy="true">Loading...</article>
       </div>
+
       <div v-else-if="error">
         <span>Error loading {{ error.message }}</span>
       </div>
 
       <div
         v-else
-        class="!grid grid-cols-2 w-3/4 z-10 gap-8 p-8 bg-[#12172A] relative overflow-hidden"
+        class="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
       >
         <div
-          class="bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat inset-0 absolute glow-2"
+          class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2"
         ></div>
+
         <div v-if="statusImg === 'pending'">
           <p aria-busy="true">Loading...</p>
         </div>
 
         <div v-else-if="imgError || !imgPost" class="z-10">
           <NuxtLink :to="`/blog/${randomPost.id}`">
-            <img
-              src="https://www.sourcesplash.com/i/f36e92a9cdc9"
-              alt="tech-img"
-              class="w-[100%]"
-            />
+            <div class="relative aspect-video overflow-hidden rounded-lg">
+              <NuxtImg
+                src="https://i.imgur.com/3XY2QVx.jpeg"
+                alt="tech-img"
+                class="w-full h-full object-cover"
+              />
+            </div>
           </NuxtLink>
         </div>
 
-        <div class="z-100" v-else>
+        <div v-else class="z-10">
           <NuxtLink :to="`/blog/${randomPost.id}`" class="group">
-            <img
-              :src="imgPost.url"
-              :alt="imgPost.description"
-              class="w-[100%]"
-            />
+            <div class="relative aspect-video overflow-hidden rounded-lg">
+              <img
+                :src="imgPost.url"
+                :alt="imgPost.description"
+                class="w-full h-full object-cover"
+              />
+            </div>
           </NuxtLink>
         </div>
 
-        <NuxtLink :to="`/blog/${randomPost.id}`" class="group">
-          <div class="z-10 text-left relative" v-if="randomPost">
+        <NuxtLink :to="`/blog/${randomPost.id}`" class="group z-10">
+          <div class="text-left space-y-2">
             <h2
-              class="font-heading cursor-pointer transition-colors group-hover:!text-[#4F6BFF]"
+              class="font-heading text-lg sm:text-xl lg:text-2xl transition-colors group-hover:text-[#4F6BFF]"
             >
               {{ randomPost.title }}
             </h2>
-            <p class="font-sans text-[1rem] !text-[#A5ACC9]">
+
+            <p class="font-sans text-sm sm:text-base text-[#A5ACC9]">
               {{ randomPost.excerpt }}
             </p>
           </div>
@@ -72,9 +86,9 @@
 </template>
 
 <script setup>
-const { fetchPosts, fetchImg, fetchSlugPosts } = usePosts();
-const { data: postData, error: imgError, status: statusImg } = await fetchImg();
+const { fetchPosts, fetchImg } = usePosts();
 
+const { data: postData, error: imgError, status: statusImg } = await fetchImg();
 const imgPost = computed(() => postData.value);
 
 const { data: posts, error, status } = await fetchPosts();
@@ -84,7 +98,6 @@ const randomPostNum = computed(() =>
 );
 
 const randomPost = computed(() => posts.value?.data[randomPostNum.value]);
-// console.log(randomPost.value?.title);
 </script>
 
 <style scoped>
@@ -95,21 +108,18 @@ const randomPost = computed(() => posts.value?.data[randomPostNum.value]);
   background: rgb(254, 193, 193);
   position: absolute;
   filter: blur(40px);
-  transition: all;
   animation: pulse 7s ease-in-out infinite;
 }
 
 .glow-2 {
-  /* transform: translateX(-50%); */
-  /* width: max-content; */
   animation: slide 4s ease-in-out infinite;
   opacity: 0.5;
   filter: blur(1px);
 }
+
 .glow-2::before {
   content: "";
   inset: 0;
-
   background: rgb(0, 0, 0);
   position: absolute;
   opacity: 0.7;
@@ -120,7 +130,6 @@ const randomPost = computed(() => posts.value?.data[randomPostNum.value]);
   100% {
     opacity: 0;
   }
-
   50% {
     opacity: 0.01;
   }

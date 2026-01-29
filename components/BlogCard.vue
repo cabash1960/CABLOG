@@ -1,27 +1,33 @@
 <template>
   <ErrorFallBack>
     <div
-      class="bg-[#12172A] relative p-6 hover:shadow-lg transition-shadow hover:!border-1 hover:border-blue-600 shadow-lg overflow-hidden h-full"
+      class="relative h-full overflow-hidden rounded-xl bg-[#12172A] p-4 sm:p-6 shadow-lg transition hover:shadow-xl hover:border hover:border-blue-600"
     >
       <div
-        class="bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat inset-0 absolute glow-3"
+        class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-3"
       ></div>
-      <NuxtLink :to="`/blog/${post.id}`" class="block relative group">
-        <h2 class="text-2xl font-bold mb-2 group-hover:text-blue-600 z-10">
+
+      <NuxtLink
+        :to="`/blog/${post.id}`"
+        class="relative z-10 flex flex-col h-full group"
+      >
+        <h2
+          class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 transition-colors group-hover:text-blue-600"
+        >
           {{ post.title }}
         </h2>
 
-        <p class="text-gray-600 mb-4 z-10">
+        <p class="text-sm sm:text-base text-gray-400 mb-4 line-clamp-3">
           {{ post.excerpt || post.content?.substring(0, 150) + "..." }}
         </p>
 
         <div
-          class="flex items-center justify-between text-sm text-gray-500 z-10 relative"
+          class="mt-auto flex items-center justify-between text-xs sm:text-sm text-gray-500"
         >
           <span v-if="post.author">By {{ post.author }}</span>
-          <span v-if="post.createdAt" class="text-bottom">{{
-            formatDate(post.createdAt)
-          }}</span>
+          <span v-if="post.createdAt">
+            {{ formatDate(post.createdAt) }}
+          </span>
         </div>
       </NuxtLink>
     </div>
@@ -36,11 +42,10 @@ defineProps({
   },
 });
 
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString("en-US", {
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
-};
 </script>

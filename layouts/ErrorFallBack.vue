@@ -1,21 +1,50 @@
 <template>
-  <NuxtErrorBoundary>
+  <NuxtErrorBoundary @error="logError">
     <slot />
-    <template #error="{ error }">
+
+    <template #error="{ error, clearError }">
       <div
-        class="min-h-screen px-8 py-4 grid place-items-center max-w-md text-center space-y-6"
+        class="p-8 text-center space-y-4 border border-red-200 rounded-lg bg-red-50"
       >
-        <div>⚠️</div>
-        <h1>Something went Wrong</h1>
-        <p v-if="error?.message">Error: {{ error.message }}</p>
-        <p v-else>Error: {{ String(error) }}</p>
-        <button @click="handleError">Clear error</button>
+        <div class="text-6xl">⚠️</div>
+        <h2 class="text-xl font-bold">Something went wrong</h2>
+        <p class="text-gray-700">{{ error?.message || String(error) }}</p>
+
+        <div class="flex gap-4 justify-center">
+          <button
+            @click="clearError"
+            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Try Again
+          </button>
+
+          <button
+            @click="goHome"
+            class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+          >
+            Go Home
+          </button>
+        </div>
       </div>
     </template>
   </NuxtErrorBoundary>
 </template>
+
 <script setup>
-const handleError = () => {
-  clearError({ redirect: "/" });
+const router = useRouter();
+
+onErrorCaptured((err, instance, info) => {
+  console.error("ErrorFallback caught:", err);
+  console.log("Error info:", info);
+
+  return false;
+});
+
+const logError = (error) => {
+  console.error("Error boundary triggered:", error);
+};
+
+const goHome = () => {
+  router.push("/");
 };
 </script>

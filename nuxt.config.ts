@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-01-27",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/png", href: "/img-logo.png" }],
+    },
+  },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/fonts", "@nuxt/image"],
-  css: ["@picocss/pico", "/assets/main.css","/assets/piccoOverideCss.css"],
+  css: ["@picocss/pico", "/assets/main.css", "/assets/piccoOverideCss.css"],
   fonts: {
     provider: "google",
     families: [

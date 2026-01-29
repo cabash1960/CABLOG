@@ -2,30 +2,47 @@
   <ErrorFallBack>
     <header class="sticky top-0 z-50">
       <div
-        class="relative bg-[url('/bg-img.jpg')] px-5 bg-cover bg-cneter bg-no-repeat"
+        class="relative bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat"
       >
-        <div class="inset-0 absolute bg-black/70"></div>
-        <nav class="container font-heading !text-white px-8 py-3">
-          <ul class="z-100">
-            <li class="flex gap-2 font-heading font-black z-10">Ca-Blog</li>
+        <div class="absolute inset-0 bg-black/70"></div>
+
+        <nav
+          class="relative container mx-auto px-5 py-4 text-white flex items-center justify-between"
+        >
+          <NuxtLink to="/" class="flex items-center gap-2 font-black">
+            <NuxtImg src="/img-logo.png" alt="CA Blog" width="30" height="30" />
+            <span> <span class="text-blue-500">CA</span>Blog </span>
+          </NuxtLink>
+
+          <ul class="hidden md:flex items-center gap-6 font-medium">
+            <li><NuxtLink to="#">Featured</NuxtLink></li>
+            <li><NuxtLink to="#">Announcements</NuxtLink></li>
+            <li><NuxtLink to="#">About</NuxtLink></li>
           </ul>
-          <ul>
-            <li class="z-10 cursor-pointer">
-              <NuxtLink to="/feautured">Featured</NuxtLink>
-            </li>
-            <li class="z-10">
-              <NuxtLink to="#">Announcements</NuxtLink>
-            </li>
-            <li class="z-10 cursor-pointer">
-              <NuxtLink to="#">About</NuxtLink>
-            </li>
-          </ul>
+
+          <button
+            class="md:hidden z-10"
+            @click="open = !open"
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
         </nav>
+
+        <div
+          v-if="open"
+          class="md:hidden relative bg-black/90 text-white px-5 py-4 space-y-4"
+        >
+          <NuxtLink to="#" class="block">Featured</NuxtLink>
+          <NuxtLink to="#" class="block">Announcements</NuxtLink>
+          <NuxtLink to="#" class="block">About</NuxtLink>
+        </div>
       </div>
     </header>
   </ErrorFallBack>
 </template>
 
-<script setup></script>
-
-<style scoped></style>
+<script setup>
+import { ref } from "vue";
+const open = ref(false);
+</script>
