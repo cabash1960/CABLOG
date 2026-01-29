@@ -1,10 +1,16 @@
 <template>
   <ErrorFallBack>
     <nav-bar />
-    <main>
-      <slot />
-      <LazyMyHeavyComponent />
-    </main>
+    <Suspense>
+      <template #default>
+        <main class="min-h-screen">
+          <slot />
+        </main>
+      </template>
+      <template #fallback>
+        <SkeletonLoader />
+      </template>
+    </Suspense>
     <Footer />
   </ErrorFallBack>
 </template>

@@ -43,8 +43,8 @@
           <p aria-busy="true">Loading...</p>
         </div>
 
-        <div v-else-if="imgError || !imgPost" class="z-10">
-          <NuxtLink :to="`/blog/${randomPost.id}`">
+        <div v-else class="z-10">
+          <NuxtLink :to="randomPost ? `/blog/${randomPost.id}` : '/'">
             <div class="relative aspect-video overflow-hidden rounded-lg">
               <NuxtImg
                 src="https://res.cloudinary.com/dfsk9idjx/image/upload/c_crop,g_north_west,h_1253,w_1880/f36e92a9cdc9_m30bim.jpg"
@@ -56,29 +56,19 @@
           </NuxtLink>
         </div>
 
-        <div v-else class="z-10">
-          <NuxtLink :to="`/blog/${randomPost.id}`" class="group">
-            <div class="relative aspect-video overflow-hidden rounded-lg">
-              <NuxtImg
-                :src="imgPost.url"
-                :alt="imgPost.description"
-                format="webp"
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </NuxtLink>
-        </div>
-
-        <NuxtLink :to="`/blog/${randomPost.id}`" class="group z-10">
-          <div class="text-left space-y-2">
+        <NuxtLink
+          :to="randomPost ? `/blog/${randomPost.id}` : '/'"
+          class="group z-10"
+        >
+          <div class="text-left">
             <h2
               class="font-heading text-lg sm:text-xl lg:text-2xl transition-colors group-hover:text-[#4F6BFF]"
             >
-              {{ randomPost.title }}
+              {{ randomPost ? randomPost.title : "" }}
             </h2>
 
             <p class="font-sans text-sm sm:text-base text-[#A5ACC9]">
-              {{ randomPost.excerpt }}
+              {{ randomPost ? randomPost.excerpt : "" }}
             </p>
           </div>
         </NuxtLink>
@@ -89,9 +79,6 @@
 
 <script setup>
 const { fetchPosts, fetchImg } = usePosts();
-
-const { data: postData, error: imgError, status: statusImg } = await fetchImg();
-const imgPost = computed(() => postData.value);
 
 const { data: posts, error, status } = await fetchPosts();
 

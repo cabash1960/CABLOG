@@ -34,6 +34,7 @@
 
 <script setup>
 const route = useRoute();
+
 const { fetchSlugPosts } = usePosts();
 
 const { data, status, error } = await fetchSlugPosts(route.params.id);

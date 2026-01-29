@@ -28,19 +28,8 @@ export const usePosts = () => {
     return { data, error, status };
   };
 
-  const fetchImg = async () => {
-    const { data, error, status } = await useLazyFetch(baseURL2);
-    if (error.value) {
-      throw createError({
-        status: 500,
-        statusText: error.value.message || "Failed to fetch image",
-      });
-    }
-    return { data, error, status };
-  };
   return {
     fetchPosts,
     fetchSlugPosts,
-    fetchImg,
   };
 };
