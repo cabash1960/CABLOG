@@ -1,15 +1,15 @@
 <template>
   <ErrorFallBack>
     <div
-      class="flex flex-col justify-center items-center gap-4 min-h[3/4] min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 overflow-hidden pt-8 relative"
+      class="flex flex-col justify-center items-center gap-4 min-h-screen text-center font-bold bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat px-4 sm:px-6 overflow-hidden pt-8 relative"
     >
-      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="absolute inset-0 bg-black/60 z-0"></div>
 
       <div
-        class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2"
+        class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2 z-0"
       ></div>
 
-      <div class="glow"></div>
+      <div class="glow z-0"></div>
 
       <div class="z-10">
         <h1 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl">
@@ -23,28 +23,24 @@
         </p>
       </div>
 
-      <div v-if="status === 'pending'">
+      <div v-if="status === 'pending'" class="z-10">
         <article aria-busy="true">Loading...</article>
       </div>
 
-      <div v-else-if="error">
+      <div v-else-if="error" class="z-10">
         <span>Error loading {{ error.message }}</span>
       </div>
 
       <div
-        v-else
-        class="!grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
+        v-else-if="randomPost"
+        class="!grid !grid-cols-1 md:!grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
       >
         <div
-          class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2"
+          class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2 z-0"
         ></div>
 
-        <div v-if="status === 'pending'">
-          <p aria-busy="true">Loading...</p>
-        </div>
-
-        <div v-else class="z-10">
-          <NuxtLink :to="randomPost ? `/blog/${randomPost.id}` : '/'">
+        <div class="relative z-10">
+          <NuxtLink :to="`/blog/${randomPost.id}`">
             <div class="relative aspect-video overflow-hidden rounded-lg">
               <NuxtImg
                 src="https://res.cloudinary.com/dfsk9idjx/image/upload/c_crop,g_north_west,h_1253,w_1880/f36e92a9cdc9_m30bim.jpg"
@@ -56,19 +52,16 @@
           </NuxtLink>
         </div>
 
-        <NuxtLink
-          :to="randomPost ? `/blog/${randomPost.id}` : '/'"
-          class="group z-10"
-        >
+        <NuxtLink :to="`/blog/${randomPost.id}`" class="group relative z-10">
           <div class="text-left">
             <h2
               class="font-heading text-lg sm:text-xl lg:text-2xl transition-colors group-hover:text-[#4F6BFF]"
             >
-              {{ randomPost ? randomPost.title : "" }}
+              {{ randomPost.title }}
             </h2>
 
-            <p class="font-sans text-sm sm:text-base text-[#A5ACC9]">
-              {{ randomPost ? randomPost.excerpt : "" }}
+            <p class="font-sans text-sm sm:text-base text-[#A5ACC9] mt-2">
+              {{ randomPost.excerpt }}
             </p>
           </div>
         </NuxtLink>
@@ -78,15 +71,15 @@
 </template>
 
 <script setup>
-const { fetchPosts, fetchImg } = usePosts();
+const { fetchPosts } = usePosts();
 
 const { data: posts, error, status } = await fetchPosts();
 
 const randomPostNum = computed(() =>
-  Math.floor(Math.random() * posts.value?.data.length),
+  Math.floor(Math.random() * (posts.value?.data?.length || 1)),
 );
 
-const randomPost = computed(() => posts.value?.data[randomPostNum.value]);
+const randomPost = computed(() => posts.value?.data?.[randomPostNum.value]);
 </script>
 
 <style scoped>
