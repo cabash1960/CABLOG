@@ -33,7 +33,7 @@
           v-if="open"
           class="md:hidden relative bg-black/90 text-white px-5 py-4 space-y-4"
         >
-          <NuxtLink to="#" class="block">Featured</NuxtLink>
+          <NuxtLink to="/features" class="block">Featured</NuxtLink>
           <NuxtLink to="#" class="block">Announcements</NuxtLink>
           <NuxtLink to="#" class="block">About</NuxtLink>
         </div>

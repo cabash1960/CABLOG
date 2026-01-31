@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-01-27",
   devtools: { enabled: false },
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       link: [{ rel: "icon", type: "image/png", href: "/img-logo.png" }],
     },
