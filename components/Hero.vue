@@ -33,7 +33,7 @@
 
       <div
         v-else-if="randomPost"
-        class="!grid !grid-cols-1 md:!grid-cols-2 w-full max-w-5xl gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
+        class="!grid !grid-cols-1 md:!grid-cols-2 w-full max-w-5xl hover:scale-105 transition-all duration-300 gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 bg-[#12172A] z-10 relative overflow-hidden"
       >
         <div
           class="absolute inset-0 bg-[url('/bg-img.jpg')] bg-cover bg-center bg-no-repeat glow-2 z-0"
@@ -93,7 +93,7 @@ const randomPost = computed(() => posts.value?.data?.[randomPostNum.value]);
   content: "";
   inset: 0;
   border-radius: 50%;
-  background: rgb(255, 91, 247);
+  background: rgb(255, 91, 162);
   position: absolute;
   filter: blur(40px);
   animation: pulse 7s ease-in-out infinite;
@@ -119,7 +119,7 @@ const randomPost = computed(() => posts.value?.data?.[randomPostNum.value]);
     opacity: 0;
   }
   50% {
-    opacity: 0.01;
+    opacity: 0.02;
   }
 }
 
