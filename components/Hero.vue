@@ -73,7 +73,13 @@
 <script setup>
 const { fetchPosts } = usePosts();
 
-const { data: posts, error, status } = await fetchPosts();
+const { data: posts, error, status, refresh } = await fetchPosts();
+
+onMounted(() => {
+  if (posts.value) {
+    refresh();
+  }
+});
 
 const randomPostNum = computed(() =>
   Math.floor(Math.random() * (posts.value?.data?.length || 1)),
@@ -87,7 +93,7 @@ const randomPost = computed(() => posts.value?.data?.[randomPostNum.value]);
   content: "";
   inset: 0;
   border-radius: 50%;
-  background: rgb(254, 193, 193);
+  background: rgb(255, 91, 247);
   position: absolute;
   filter: blur(40px);
   animation: pulse 7s ease-in-out infinite;

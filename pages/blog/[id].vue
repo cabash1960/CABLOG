@@ -1,6 +1,6 @@
 <template>
-  <ErrorFallBack>
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
+  <section class="container mx-auto px-4 py-8 max-w-4xl">
+    <ErrorFallBack>
       <article v-if="status === 'pending'" aria-busy="true"></article>
 
       <div v-else-if="error" class="text-red-600 text-center">
@@ -28,8 +28,8 @@
           ← Back to all posts
         </NuxtLink>
       </article>
-    </div>
-  </ErrorFallBack>
+    </ErrorFallBack>
+  </section>
 </template>
 
 <script setup>

@@ -2,11 +2,7 @@
   <div>
     <NuxtLoadingIndicator />
     <NuxtLayout>
-      <Suspense>
-        <template #default>
-          <NuxtPage />
-        </template>
-      </Suspense>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
